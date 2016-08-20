@@ -15,3 +15,5 @@ def findPythagTrip1000():
                     if isPythagTrip(a, b, c):
                         return [a, b, c];
             a = a + 1
+
+print findPythagTrip1000()
