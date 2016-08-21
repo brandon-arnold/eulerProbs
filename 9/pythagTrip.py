@@ -3,17 +3,18 @@ import math
 def isPythagTrip(a, b, c):
     return math.pow(a, 2) + math.pow(b, 2) == math.pow(c, 2);
 
-def isAdd1000(a, b, c):
-    return a + b + c == 1000;
-
-def findPythagTrip1000():
-    for c in range(334,1000):
-        a = 1
-        while a < c - 2:
-            for b in range(a + 1, c - 1):
-                if isAdd1000(a, b, c):
+def findPythagTrip(N):
+    for c in range(N / 3, N):
+        [a, b] = [c - 2, c - 1]
+        sum = a + b + c
+        while sum >= N:
+            while b > a:
+                if sum == N:
                     if isPythagTrip(a, b, c):
                         return [a, b, c];
-            a = a + 1
+                b = b - 1
+            a = a - 1
+            b = c - 1
+            sum = a + b + c
 
-print findPythagTrip1000()
+print findPythagTrip(1000)
