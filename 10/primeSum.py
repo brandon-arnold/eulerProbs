@@ -5,7 +5,7 @@ from math import sqrt
 #
 # Outputs
 #
-sum = 0
+sum = 2
 
 #
 # Get/validate argument
@@ -24,13 +24,13 @@ except ValueError:
 # Create bitmap
 #
 bMap = bitarray()
-bMap.extend((0,)*n)
+bMap.extend((0, 1, ) * (n / 2))
 
 #
 # Perform prime sieve, with sqrt(n) as the upper bound
 #
 floorSqrtN = int(sqrt(n))
-for i in range(2, floorSqrtN + 1):
+for i in range(3, floorSqrtN + 1):
     if not bMap[i - 1]:
         sum += i
         multiple = i * i
