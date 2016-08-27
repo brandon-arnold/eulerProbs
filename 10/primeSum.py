@@ -24,7 +24,7 @@ except ValueError:
 # Create bitmap
 #
 bMap = bitarray()
-bMap.extend((0, 1, ) * (n / 2))
+bMap.extend((0, 1, ) * (n // 2))
 
 #
 # Perform prime sieve, with sqrt(n) as the upper bound
