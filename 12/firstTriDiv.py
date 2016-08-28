@@ -1,46 +1,38 @@
 import time
-start_time = time.time()
 
-lookupMin =  60000000
-lookupMax = 110000000
-divCount = 500
-D = [2]*(lookupMax - lookupMin)
-T = [False]*(lookupMax - lookupMin)
-
-# mark all triangular numbers in the lookup range
-curTriI = 2
-sum = 3
-while sum < lookupMin:
-    curTriI += 1
-    sum += curTriI
-while sum < lookupMax:
-    T[sum - lookupMin] = True
-    curTriI += 1
-    sum += curTriI
-
-# sift divisors less than lookupMin within lookup range
-for i in range(2, lookupMin):
-    for j in range((lookupMin // i + 1) * i, lookupMax // 2, i):
-        D[j - lookupMin] += 1
-
-# continue sifting, but start comparing divisor count
-result = 0
-maxDivisors = 2
-maxDivTri = 1
-for i in range(lookupMin, lookupMax):
-    if T[i - lookupMin]:
-        if D[i - lookupMin] >= divCount:
-            print("Triangle number " + str(i) + " has " + str(D[i - lookupMin]) + " divisors.")
-            print(" %s seconds" % str(time.time() - start_time))
-            result = i
-            break
+pastCounts = {}
+def countDivisors(n):
+    global pastCounts
+    if n in pastCounts:
+        return pastCounts[n]
+    unFactored = n
+    divisorCount = 2
+    denominator = 2
+    curExponentCount = 1
+    while unFactored != denominator:
+        if unFactored % denominator == 0:
+            curExponentCount += 1
+            unFactored = unFactored // denominator
         else:
-            if D[i - lookupMin] > maxDivisors:
-                maxDivisors = D[i - lookupMin]
-                maxDivTri = i
-    for j in range(i, lookupMax // 2, i):
-        D[j - lookupMin] += 1
+            if curExponentCount > 1:
+                divisorCount *= curExponentCount
+            curExponentCount = 1
+            denominator += 2 if denominator != 2 else 1
+    pastCounts[n] = divisorCount
+    return divisorCount
 
-if result == 0:
-    print("No result found.")
-    print("Max divisors is " + str(maxDivisors) + " for triangle number " + str(maxDivTri) + ".")
+start_time = time.time()
+k = 2
+while True:
+    kDivisors = countDivisors(k)
+    k2m1Divisors = countDivisors(2 * k - 1)
+    k2p1Divisors = countDivisors(2 * k + 1)
+    if kDivisors * k2m1Divisors > 500:
+        print("Triangular sum " + str(k*(2*k - 1)) + " has " + str(kDivisors * k2m1Divisors) + " divisors.")
+        print(" " + str(time.time() - start_time) + " seconds.")
+        break
+    elif kDivisors * k2p1Divisors > 500:
+        print("Triangular sum " + str(k*(2*k + 1)) + " has " + str(kDivisors * k2p1Divisors) + " divisors.")
+        print(" " + str(time.time() - start_time) + " seconds.")
+        break
+    k += 1

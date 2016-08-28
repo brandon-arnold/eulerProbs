@@ -1,0 +1,3 @@
+40! / (20! * 20!)
+
+(or, simply the number of permutations of 20 zeroes and 20 ones)
