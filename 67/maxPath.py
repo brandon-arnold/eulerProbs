@@ -1,4 +1,4 @@
-T = [[int(t) for t in line.strip().split()] for line in open(".\p067_triangle.txt", 'r')]
+T = [[int(t) for t in line.strip().split()] for line in open("p067_triangle.txt", 'r')]
 lastSums = []
 curSums = T[len(T) - 1]
 for i in range(len(T) - 2, -1, -1):

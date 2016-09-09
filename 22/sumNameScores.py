@@ -6,7 +6,7 @@ def getValue(name):
             total += (val - 64)
     return total
 
-lines = [line.strip() for line in open(".\p022_names.txt", 'r')]
+lines = [line.strip() for line in open("p022_names.txt", 'r')]
 
 names = []
 for line in lines:
