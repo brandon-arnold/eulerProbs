@@ -20,22 +20,20 @@ def getCycLen(x):
             curNumerator = recurDigs[curNumerator]
         return cycLen
 
-# init coPrimes with numbers divisible by 2 or 5 marked as false
-coPrimes = [False, True, False, True, False, False, False, True, False, True]*((N/10) + 1)
+prime = [True]*(N + 1)
 bound = ceil(sqrt(N))
-for i in range(int(bound)):
-    if coPrimes[i]:
+for i in range(2, int(bound)):
+    if prime[i]:
         for j in range(i, N // i):
-            coPrimes[i * j] = True
+            prime[i * j] = False
     
 maxCyc = 0
 maxCycLen = 0
-for i in range(N + 1):
-    if coPrimes[i]:
+for i in range(2, N + 1):
+    if prime[i]:
         cycLen = getCycLen(i)
         if cycLen > maxCyc:
             maxCyc = i
             maxCycLen = cycLen
 
 print(maxCyc)
-print(maxCycLen)
